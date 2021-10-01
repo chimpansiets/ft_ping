@@ -3,26 +3,26 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: tde-jong <tde-jong@student.codam.nl>         +#+                      #
+#    By: chimpansiets <chimpansiets@student.coda      +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/11/12 10:13:23 by tde-jong       #+#    #+#                 #
-#    Updated: 2019/11/19 15:03:29 by tde-jong      ########   odam.nl          #
+#    Created: 2021/09/30 16:00:57 by chimpansiet   #+#    #+#                  #
+#    Updated: 2021/09/30 18:44:43 by chimpansiet   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include colors.mk
 
-NAME = c-base
+NAME = ft_ping
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Wunreachable-code $(INC_FLAGS) $(DEP_FLAGS)
-LDFLAGS =
-LDLIBS =
+CFLAGS = $(INC_FLAGS) $(DEP_FLAGS) # -Wall -Werror -Wextra -Wunreachable-code
+LDFLAGS = -Llibft/
+LDLIBS = -lft
 
 VPATH = \
 	src
 
 SRC = \
-	main
+	main packet
 
 INC_DIR = ./inc
 INC_FLAGS = -I $(INC_DIR)
