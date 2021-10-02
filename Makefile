@@ -22,7 +22,7 @@ VPATH = \
 	src
 
 SRC = \
-	main packet
+	main socket errors packet_stats
 
 INC_DIR = ./inc
 INC_FLAGS = -I $(INC_DIR)
