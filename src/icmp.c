@@ -33,7 +33,7 @@ static void	fill_icmp_header(struct icmp *ping, int id, int seq)
 	ping->icmp_id = htons(id);
 	ping->icmp_seq = htons(seq);
 	ping->icmp_cksum = 0;
-	ping->icmp_cksum = in_cksum(ping, ICMP_PAYLOAD_SIZE + ICMP_HDR_SIZE);
+	ping->icmp_cksum = in_cksum((u_int16_t*)ping, ICMP_PAYLOAD_SIZE + ICMP_HDR_SIZE);
 }
 
 #endif

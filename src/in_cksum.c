@@ -12,7 +12,7 @@
 
 #include "header.h"
 
-uint16_t    in_cksum(uint16_t *addr, int len)
+uint16_t    in_cksum(u_int16_t *addr, int len)
 {
 
     int         nleft;
