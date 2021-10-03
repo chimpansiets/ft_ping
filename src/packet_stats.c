@@ -6,7 +6,7 @@
 /*   By: svoort <svoort@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/02 21:20:41 by svoort        #+#    #+#                 */
-/*   Updated: 2021/10/03 10:24:01 by chimpansiet   ########   odam.nl         */
+/*   Updated: 2021/10/03 10:55:53 by chimpansiet   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,55 @@ void				set_stats_timer(void)
 	g_stats.start_time = get_time();
 }
 
+void				print_stats(uint packets_sent, const char *dest_addr)
+{
+	printf("\n--- %s ping statistics ---\n", dest_addr);
+	printf("%u packets transmitted, ", packets_sent);
+	printf("%u received, ", g_stats.packets_recvd);
+
+	if (g_stats.nb_errors)
+		printf("+%u errors, ", g_stats.nb_errors);
+
+	float loss = 1.0f - g_stats.packets_recvd / (float)packets_sent;
+	printf("%d%% packet loss, ", (int)(loss * 100.0f));
+
+	suseconds_t timediff = get_time() - g_stats.start_time;
+	printf("time %ld.%03ldms\n", timediff / 1000l, timediff % 1000l);
+
+	if (g_stats.packets_recvd > 0)
+	{
+		suseconds_t	mdev;
+		mdev = g_stats.rtt_total / g_stats.packets_recvd;
+		g_stats.rtt_sq_total /= g_stats.packets_recvd;
+		mdev = sqrtl(g_stats.rtt_sq_total - mdev * mdev);
+
+		printf("rtt min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms\n",
+			g_stats.rtt_min / 1000.0f,
+			g_stats.rtt_total / (float) g_stats.packets_recvd / 1000.0f,
+			g_stats.rtt_max / 1000.0f,
+			mdev / 1000.0f);
+	}
+}
+
 static const char		*packet_format = \
-"\e[32m IP HEADER\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m| IPv  %x | IHL %x |    TOS %hhx     |          Total Length    %hx   |\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m|         Identification    %04hx      |   Fragment Offset  %hx    |\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m|   TTL   %hhx    |   Protocol %hhx  |       Header Checksum %04hx    |\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m|                     Source Address    %08x                |\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m|                  Destination Address  %08x                |\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m ICMP HEADER\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m|    Type %hhx     |    Code %hhx     |        Checksum %04hx          |\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n" \
-"\e[32m|           Identifier %x       |        Sequence Number %x      |\n" \
-"\e[34m+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\e[0m\n";
+"\e[36m IP HEADER\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m| IPv  %x | IHL %x |    TOS %hhx     |          Total Length    %hx   |\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m|         Identification    %04hx      |   Fragment Offset  %hx    |\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m|   TTL   %hhx    |   Protocol %hhx  |       Header Checksum %04hx    |\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m|                     Source Address    %08x                |\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m|                  Destination Address  %08x                |\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m ICMP HEADER\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m|    Type %hhx     |    Code %hhx     |        Checksum %04hx          |\n" \
+"\e[37m*****************************************************************\n" \
+"\e[36m|           Identifier %x       |        Sequence Number %x      |\n" \
+"\e[37m*****************************************************************\e[0m\n";
 
 #ifdef __linux__
 

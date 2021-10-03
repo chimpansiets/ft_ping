@@ -6,7 +6,7 @@
 /*   By: chimpansiets <chimpansiets@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/30 16:00:47 by chimpansiet   #+#    #+#                 */
-/*   Updated: 2021/10/03 10:22:25 by chimpansiet   ########   odam.nl         */
+/*   Updated: 2021/10/03 10:45:01 by chimpansiet   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ t_flags *parse_args(int argc, char **argv) {
 
 static void	signal_exit(int sig)
 {
-	// close(g_ping.sock);
-	// print_stats(g_ping.sequence, g_ping.dest_addr);
-	// exit(EXIT_SUCCESS);
+	close(g_ping.socket);
+	print_stats(g_ping.sequence, g_ping.dest_addr);
+	exit(EXIT_SUCCESS);
 }
 
 static void	send_ping(int sig)

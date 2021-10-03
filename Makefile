@@ -6,7 +6,7 @@
 #    By: chimpansiets <chimpansiets@student.coda      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/09/30 16:00:57 by chimpansiet   #+#    #+#                  #
-#    Updated: 2021/10/03 10:16:28 by chimpansiet   ########   odam.nl          #
+#    Updated: 2021/10/03 10:52:34 by chimpansiet   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = ft_ping
 CC = gcc
 CFLAGS = $(INC_FLAGS) $(DEP_FLAGS) # -Wall -Werror -Wextra -Wunreachable-code
 LDFLAGS = -Llibft/
-LDLIBS = -lft
+LDLIBS = -lft -lm
 
 VPATH = \
 	src

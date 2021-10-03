@@ -6,7 +6,7 @@
 /*   By: chimpansiets <chimpansiets@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/30 16:01:06 by chimpansiet   #+#    #+#                 */
-/*   Updated: 2021/10/03 10:21:43 by chimpansiet   ########   odam.nl         */
+/*   Updated: 2021/10/03 10:45:35 by chimpansiet   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ uint16_t                in_cksum(uint16_t *addr, int len);
 void	                receive_echo_reply(int icmp_sock, struct sockaddr_in sockaddr, \
 			            char *packet, bool verbose_mode);
 void		            check_reply(void *packet, uint16_t seq);
+void				    print_stats(uint packets_sent, const char *dest_addr);
 
 #endif
