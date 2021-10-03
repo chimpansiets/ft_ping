@@ -6,7 +6,7 @@
 #    By: chimpansiets <chimpansiets@student.coda      +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/09/30 16:00:57 by chimpansiet   #+#    #+#                  #
-#    Updated: 2021/09/30 18:44:43 by chimpansiet   ########   odam.nl          #
+#    Updated: 2021/10/03 10:16:28 by chimpansiet   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ VPATH = \
 	src
 
 SRC = \
-	main socket errors packet_stats
+	main socket errors packet_stats ip_header icmp in_cksum socket_io
 
 INC_DIR = ./inc
 INC_FLAGS = -I $(INC_DIR)
