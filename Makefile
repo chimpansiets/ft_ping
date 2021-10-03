@@ -22,7 +22,7 @@ VPATH = \
 	src
 
 SRC = \
-	main socket errors packet_stats ip_header icmp in_cksum socket_io
+	main socket errors packet_stats ip_header icmp internet_cksum socket_io
 
 INC_DIR = ./inc
 INC_FLAGS = -I $(INC_DIR)
